@@ -1,5 +1,4 @@
 AllCops:
-  TargetRubyVersion: 2.6.5
   Exclude:
     - Rakefile
     - config.ru
