@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'omniauth-oauth2'
 
 module OmniAuth
   module Strategies
-    class Kakao < OmniAuth::Strategies::OAuth2
-      option :name, 'kakao'
+    class Kakao2 < OmniAuth::Strategies::OAuth2
+      option :name, 'kakao2'
 
       option :client_options,
              site: 'https://kauth.kakao.com',
@@ -57,4 +59,4 @@ module OmniAuth
   end
 end
 
-OmniAuth.config.add_camelization 'kakao', 'Kakao'
+OmniAuth.config.add_camelization 'kakao2', 'Kakao2'

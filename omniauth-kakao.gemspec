@@ -1,13 +1,13 @@
 $LOAD_PATH.push File.expand_path('lib', __dir__)
-require 'omniauth-kakao/version'
+require 'omniauth/kakao2/version'
 
 Gem::Specification.new do |s|
-  s.name        = 'omniauth-kakao'
-  s.version     = Omniauth::Kakao::VERSION
+  s.name        = 'omniauth-kakao2'
+  s.version     = Omniauth::Kakao2::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Shayne Sung-Hee Kang']
   s.email       = ['shayne.kang@gmail.com']
-  s.homepage    = 'https://github.com/shaynekang/omniauth-kakao'
+  s.homepage    = 'https://github.com/say8425/omniauth-kakao2'
   s.summary     = 'OmniAuth strategy for Kakao'
   s.description = 'OmniAuth strategy for Kakao(http://developers.kakao.com/)'
   s.license     = 'MIT'

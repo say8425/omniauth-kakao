@@ -1,8 +1,8 @@
-require 'spec_helper'
+require 'spec/spec_helper'
 require 'omniauth'
-require 'omniauth-kakao'
+require 'omniauth/kakao2'
 
-describe OmniAuth::Strategies::Kakao do
+describe OmniAuth::Strategies::Kakao2 do
   CLIENT_ID = '<<your-client-id>>'.freeze
   SERVER_NAME = 'www.example.com'.freeze
 
@@ -13,7 +13,7 @@ describe OmniAuth::Strategies::Kakao do
   let(:middleware) do
     app = ->(env) { [200, env, 'app'] }
 
-    middleware = OmniAuth::Strategies::Kakao.new(app)
+    middleware = OmniAuth::Strategies::Kakao2.new(app)
     middleware.tap do |middleware|
       middleware.options.client_id = CLIENT_ID
     end
@@ -71,7 +71,7 @@ describe OmniAuth::Strategies::Kakao do
                              scope: 'Basic_Profile'
                            }.to_json)
 
-      FakeWeb.register_uri(:get, 'https://kapi.kakao.com/v1/user/me',
+      FakeWeb.register_uri(:get, 'https://kapi.kakao.com/v2/user/me',
                            content_type: 'application/json;charset=UTF-8',
                            "Authorization": "Bearer #{ACCESS_TOKEN}",
                            body: {
@@ -96,7 +96,7 @@ describe OmniAuth::Strategies::Kakao do
 
       response = env['omniauth.auth']
 
-      response.provider.should == 'kakao'
+      response.provider.should == 'kakao2'
       response.uid.should == '123456789'
 
       information = response.info
