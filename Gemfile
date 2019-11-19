@@ -6,6 +6,6 @@ source 'https://rubygems.org'
 gemspec
 
 group :development, :test do
-  gem 'rubocop-minitest'
   gem 'rubocop-performance'
+  gem 'rubocop-rspec'
 end
