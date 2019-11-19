@@ -5,8 +5,8 @@ Gem::Specification.new do |s|
   s.name        = 'omniauth-kakao2'
   s.version     = Omniauth::Kakao2::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ['Shayne Sung-Hee Kang']
-  s.email       = ['shayne.kang@gmail.com']
+  s.authors     = 'Penguin'
+  s.email       = 'say8425@gmail.com'
   s.homepage    = 'https://github.com/say8425/omniauth-kakao2'
   s.summary     = 'OmniAuth strategy for Kakao'
   s.description = 'OmniAuth strategy for Kakao(http://developers.kakao.com/)'
