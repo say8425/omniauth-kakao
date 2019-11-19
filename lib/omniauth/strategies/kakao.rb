@@ -5,11 +5,10 @@ module OmniAuth
     class Kakao < OmniAuth::Strategies::OAuth2
       option :name, 'kakao'
 
-      option :client_options, {
-        site: 'https://kauth.kakao.com',
-        authorize_path: '/oauth/authorize',
-        token_url: '/oauth/token',
-      }
+      option :client_options,
+             site: 'https://kauth.kakao.com',
+             authorize_path: '/oauth/authorize',
+             token_url: '/oauth/token'
 
       uid { raw_info['id'].to_s }
 
@@ -33,12 +32,14 @@ module OmniAuth
 
       def email
         return if raw_kakao_account['email'].nil?
-        return raw_kakao_account['email']
+
+        raw_kakao_account['email']
       end
 
       def image
         return if raw_properties['profile_image'].nil?
-        return raw_properties['profile_image']
+
+        raw_properties['profile_image']
       end
 
       def raw_info

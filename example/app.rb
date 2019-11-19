@@ -3,7 +3,7 @@ require 'sinatra'
 require 'omniauth-kakao'
 
 client_id = ENV['KAKAO_CLIENT_ID']
-if client_id == nil
+if client_id.nil?
   class NoClientIDError < StandardError; end
   raise NoClientIDError, "KAKAO_CLIENT_ID is nil. Please run example like `KAKAO_CLIENT_ID='<your-kakako-client-id>' ruby app.rb`"
 end
@@ -18,7 +18,7 @@ helpers do
   def yaml_to_html(yaml)
     display = yaml.split("\n")
     display = display.map do |e|
-      e.gsub!("  ", "&nbsp;&nbsp;&nbsp;&nbsp;")
+      e.gsub!('  ', '&nbsp;&nbsp;&nbsp;&nbsp;')
       "<p>#{e}</p>"
     end.join
   end
@@ -30,7 +30,7 @@ end
 
 get '/auth/:provider/callback' do
   @modal = {
-    title: "Success!",
+    title: 'Success!',
     body: yaml_to_html(request.env['omniauth.auth'].to_yaml)
   }
 
@@ -39,7 +39,7 @@ end
 
 get '/auth/failure' do
   @modal = {
-    title: "Failure",
+    title: 'Failure',
     body: "Error: #{params[:message]}"
   }
 
