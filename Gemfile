@@ -1,4 +1,11 @@
-source 'http://rubygems.org'
+# frozen_string_literal: true
 
-# Specify your gem's dependencies in omniauth-github.gemspec
+source 'https://rubygems.org'
+
+# Specify your gem's dependencies in sens_sms.gemspec
 gemspec
+
+group :development, :test do
+  gem 'rubocop-minitest'
+  gem 'rubocop-performance'
+end
