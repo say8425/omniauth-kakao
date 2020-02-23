@@ -1,6 +1,6 @@
 require 'bundler/setup'
 require 'sinatra'
-require 'omniauth-kakao'
+require 'omniauth-kakao2'
 
 client_id = ENV['KAKAO_CLIENT_ID']
 if client_id.nil?

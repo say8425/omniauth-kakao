@@ -3,41 +3,29 @@ require 'omniauth'
 require 'omniauth/kakao2'
 
 describe OmniAuth::Strategies::Kakao2 do
-  CLIENT_ID = '<<your-client-id>>'.freeze
-  SERVER_NAME = 'www.example.com'.freeze
-
-  before do
-    OmniAuth.config.logger.level = 5
-  end
-
-  let(:middleware) do
-    app = ->(env) { [200, env, 'app'] }
-
-    middleware = OmniAuth::Strategies::Kakao2.new(app)
-    middleware.tap do |middleware|
-      middleware.options.client_id = CLIENT_ID
-    end
-  end
+  let(:client_id)     { ENV['CLIENT_ID'] }
+  let(:server_name)   { ENV['SERVER_NAME'] }
+  let(:app)           { lambda { [200, {}, 'app'] } }
+  subject(:kakao)         { OmniAuth::Strategies::Kakao2.new(app, client_id) }
 
   def make_request(url, opts = {})
     Rack::MockRequest.env_for(url, {
       'rack.session' => {},
-      'SERVER_NAME' => SERVER_NAME
+      'SERVER_NAME' => server_name
     }.merge(opts))
   end
 
   describe 'GET /auth/kakao' do
     it 'should redirect to authorize page' do
       request = make_request('/auth/kakao')
+      code, env = kakao.call(request)
 
-      code, env = middleware.call(request)
-
-      code.should == 302
+      expect(code).to eq 302
 
       expect_url = <<-EXPECT
         https://kauth.kakao.com/oauth/authorize
-          ?client_id=#{CLIENT_ID}
-          &redirect_uri=http://#{SERVER_NAME}/oauth
+          ?client_id=#{client_id}
+          &redirect_uri=http://#{server_name}/oauth
           &response_type=code
       EXPECT
                    .gsub(/(\n|\t|\s)/, '')
@@ -59,8 +47,8 @@ describe OmniAuth::Strategies::Kakao2 do
                            content_type: 'application/json;charset=UTF-8',
                            parameters: {
                              grant_type: 'authorization_code',
-                             client_id: CLIENT_ID,
-                             redirect_uri: URI.encode("http://#{SERVER_NAME}/oauth"),
+                             client_id: client_id,
+                             redirect_uri: URI.encode("http://#{server_name}/oauth"),
                              code: CODE
                            },
                            body: {
@@ -90,7 +78,7 @@ describe OmniAuth::Strategies::Kakao2 do
                                'omniauth.state' => STATE
                              })
 
-      code, env = middleware.call(request)
+      code, env = kakao.call(request)
 
       code.should == 200
 
